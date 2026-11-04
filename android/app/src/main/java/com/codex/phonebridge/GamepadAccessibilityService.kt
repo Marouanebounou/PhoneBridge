@@ -18,8 +18,11 @@ class GamepadAccessibilityService : AccessibilityService(), InputManager.InputDe
     override fun onServiceConnected() {
         super.onServiceConnected()
         inputManager.registerInputDeviceListener(this, Handler(Looper.getMainLooper()))
-        if (Build.VERSION.SDK_INT >= 34) {
-            serviceInfo = serviceInfo.apply {
+        serviceInfo = serviceInfo.apply {
+            // Declaring canRequestFilterKeyEvents in the service XML grants this capability;
+            // request the runtime flag too, so button keys reach onKeyEvent and can be consumed.
+            flags = flags or AccessibilityServiceInfo.FLAG_REQUEST_FILTER_KEY_EVENTS
+            if (Build.VERSION.SDK_INT >= 34) {
                 setMotionEventSources(InputDevice.SOURCE_GAMEPAD or InputDevice.SOURCE_JOYSTICK or InputDevice.SOURCE_DPAD)
             }
         }
