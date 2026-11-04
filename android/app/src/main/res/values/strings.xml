@@ -1,0 +1,3 @@
+<resources>
+    <string name="accessibility_description">Captures Bluetooth gamepad buttons and stick movement to send to your paired PhoneBridge PC.</string>
+</resources>
